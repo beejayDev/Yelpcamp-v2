@@ -1,0 +1,49 @@
+<%- layout('../layouts/boilerplate') %>
+<div class="row">
+<div class="col-md-6">
+<div class="card mb-3">
+  <img src="<%= newCamp.image %>" class="card-img-top" alt="camp image">
+  <div class="card-body">
+    <h5 class="card-title"><%= newCamp.title %></h5>
+    <p class="card-text"><%= newCamp.description %></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= newCamp.location %></li>
+    <li class="list-group-item"><%= newCamp.price %></li>
+  </ul>
+  <div class="card-body">
+  <a class="card-link btn btn-warning" href="/campground/<%= newCamp._id %>/edit">Edit</a>
+  <form class="d-inline" action="/campground/<%= newCamp._id %>?_method=DELETE" method="POST">
+  <button class="btn btn-danger">Delete</button>
+                                                           </form>
+  </div>
+  <div class="card-footer text-muted">
+    2 days ago
+  </div>
+</div>
+</div>
+<div class='col-md-6'>
+<h2>Leave a review</h2>
+<form action='/campground/<%= newCamp._id %>/review' method='POST' class="needs-validation mb-3" novalidate>          <label for="customRange2" class="form-label">Rating</label><input type="range" class="form-range" min="0" max="5" id="
+customRange2" name='review[rating]'>                       <div class='mb-3'>
+<label class='form-label' for='body'>Review</label>
+<textarea class='form-control' name='review[body]' id='body
+' cols='30' rows='3'required></textarea>                   <div class="valid-feedback">
+        Looks good!
+        </div>
+</div>
+<button class='btn btn-success'>Submit</button>
+</form>
+<% for (let review of newCamp.reviews) { %>
+<div class='card mb-3'>
+<div class='card-body'>
+<h5 class='card-title'>rating: <%= review.rating %></h5>
+<p class='card-text'>review: <%= review.body %></p>
+<form action='/campground/<%= newCamp._id %>/review/<%= review._id %>?_method=DELETE' method='POST'>
+<button class='btn btn-sm btn-danger'>Delete</button>
+</form>
+</div>
+</div>
+<% } %>
+</div>
+</div>
